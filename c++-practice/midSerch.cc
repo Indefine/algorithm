@@ -5,31 +5,30 @@
 using std::vector;
 
 void midSerch(vector<int> datas, int need);
-void midSerch2(vector<int> datas, int begin, int end, int need);
+void midSerch2(vector<int> datas, int need, int start, int end);
 int main() {
     vector<int> datas(1000,1);
     datas[998] = 100;
     datas[999] = 1000;
     datas[356] = 1;
-    midSerch2(datas, 0,datas.size() - 1,1000);
+    midSerch2(datas, 1000, 0, datas.size() - 1);
     return 0;
 }
+void midSerch2(vector<int> datas, int need, int start, int end) {
 
-void midSerch2(vector<int> datas, int begin, int end, int need) {
-    int mid = (begin - end) / 2;
-    if (begin < mid) {
-        std::cout << " unfind postion ";
-        return;
+    if (start > end)
+        std::cout << "no postion find" <<std::endl;
+    int mid = start + (end - start) / 2;
+    
+    if (need > datas[mid]) {
+        midSerch2(datas, need, mid + 1, end);
     }
-    if (datas[mid] == need)
+    else if (need < datas[mid])
     {
-        std::cout << "find postion is " << mid;
-        return;
+        midSerch2(datas, need, start, mid - 1);
     }
-    if (datas[mid] < need)
-        midSerch2(datas, mid + 1, end, need);
     else
-        midSerch2(datas, begin, mid - 1, need);
+        std::cout << "find postion is " << mid << std::endl;
 }
 
 
